@@ -1,11 +1,21 @@
+# Dependencies and build caches
 node_modules/
 dist/
 .astro/
+.cache/
+*.tsbuildinfo
 
 # Local environment
 .env
 .env.*
 !.env.example
+!.env.*.example
+# 私钥及带私钥的证书容器；公开证书与示例配置不按扩展名一概排除。
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
 
 # Local tool/editor state
 .claude/
@@ -14,6 +24,7 @@ dist/
 .mimosa/
 # 本地 Agent 沟通、交接与执行清单
 /docs/superpowers/
+/docs/BLOG_RELIABILITY_PLAN.md
 /docs/assets/spring-ui/
 /docs/assets/admin-pearl/
 # 测试报告、执行记录和自动截图仅用于本机，不作为维护文档入库。
@@ -29,7 +40,19 @@ dist-*/
 .test-tmp/
 .current-tmp
 .current-old
-*.log
+
+# Test output only: keep tests/, scripts/ and reusable fixture source tracked.
+/coverage/
+/.nyc_output/
+/playwright-report/
+/test-results/
+/blob-report/
+
+# Interrupted atomic writes and editor scratch files (not source data).
+*.tmp
+*.swp
+*.swo
+*~
 
 # 个人博客数据：内容与媒体不进仓库（详见 docs/DEPLOYMENT.md「数据备份与恢复」）
 src/content/
@@ -51,10 +74,14 @@ data/*
 !data/announcements.json
 
 # Logs and OS caches
-npm-debug.log*
-yarn-debug.log*
+*.log
+*-debug.log*
 yarn-error.log*
-pnpm-debug.log*
 .DS_Store
+Thumbs.db
+Desktop.ini
 # 字体源文件：运行副本在 public/fonts/（根目录锚定写法，不影响副本入库）
 /LXGWWenKaiMono-Medium.ttf
+# subset-font.mjs also accepts this input location and writes a temporary character list.
+/public/fonts/LXGWWenKaiMono-Medium.ttf
+/public/fonts/.subset-unicodes.txt
